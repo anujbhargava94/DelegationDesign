@@ -2,22 +2,22 @@ package com.ub.DelegationA1P2;
 
 //ASSIGNMENT 1 - PART 2
 
-
 class Delegation {
-	
+
 	public static void main(String args[]) {
 		B b = new B();
-		System.out.println(b.f()+b.g()-b.p(1)+b.q(2));
-		
+		System.out.println(b.f() + b.g() - b.p(1) + b.q(2));
+
 		B2 b2 = new B2();
-		System.out.println(b2.f()+b2.g()-b2.p(1)+b2.q(2));
-		
+		System.out.println(b2.f() + b2.g() - b2.p(1) + b2.q(2));
+
 		D d = new D();
-		System.out.println(d.f()+d.g()-d.h()+d.p(1)-d.q(2)+d.r());
+		System.out.println(d.f() + d.g() - d.h() + d.p(1) - d.q(2) + d.r());
+		
 		
 		D2 d2 = new D2();
-		System.out.println(d2.f()+d2.g()-d2.h()+d2.p(1)-d2.q(2)+d2.r());	
-		
+		System.out.println(d2.f() + d2.g() - d2.h() + d2.p(1) - d2.q(2) + d2.r());
+
 	}
 }
 
@@ -39,15 +39,15 @@ class B extends A {
 	int b2 = 2000;
 
 	public int g() {
-		return this.p(100) + this.q(200); 
+		return this.p(100) + this.q(200);
 	}
 
 	public int p(int m) {
-		return m + a1+b1;
+		return m + a1 + b1;
 	}
 
 	public int q(int m) {
-		return m + a2+b2;
+		return m + a2 + b2;
 	}
 }
 
@@ -81,7 +81,7 @@ class D extends C {
 	public int h() {
 		return a1 + b1 + c1;
 	}
-	
+
 	public int j(int n) {
 		return r() + super.r();
 	}
@@ -99,7 +99,7 @@ class E extends C {
 	public int h() {
 		return a1 + b1 + e1;
 	}
-	
+
 	public int k(int n) {
 		return q(n) + super.q(n);
 	}
@@ -117,55 +117,8 @@ class F extends D {
 	public int h() {
 		return c2 + f2;
 	}
-	
+
 	public int l(int n) {
 		return q(n) + super.q(n);
 	}
 }
-
-
-
-//===== TRANSFORMATION IN TERMS OF DELEGATION ======
-
-
-
-//INTERFACES
-
-interface IA {
-}
-
-interface IB extends IA {
-}
-
-interface IC extends IB {
-}
-
-interface ID extends IC {
-}
-
-interface IE extends IC {
-}
-
-interface IF extends ID {
-}
-
-//CLASSES 
-
-class A2 implements IA {
-}
-
-class B2 implements IB {
-}
-
-class C2 implements IC {
-}
-
-class D2 implements ID {
-}
-
-class E2 implements IE {
-}
-
-class F2 implements IF {
-}
-
