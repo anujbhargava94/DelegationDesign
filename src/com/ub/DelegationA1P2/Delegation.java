@@ -1,6 +1,7 @@
 package com.ub.DelegationA1P2;
 
-//ASSIGNMENT 1 - PART 2
+//Delegation
+//OADA1P2
 
 class Delegation {
 

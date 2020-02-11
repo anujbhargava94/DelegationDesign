@@ -61,28 +61,28 @@ interface IF extends ID {
 class A2 implements IA {
 	int a1 = 100;
 	int a2 = 200;
-	IA iA;
+	IA this2;																		//subClass instance to access the base classes behaviour and attributes
 
-	A2(IA a) {
-		iA = a;
+	A2(IA a) {																	//Parameterised constructor to get the instance of calling class
+		this2 = a;
 	}
 
 	@Override
 	public int f() {
 		// TODO Auto-generated method stub
-		return a1 + iA.p(100) + iA.q(100);
+		return a1 + this2.p(100) + this2.q(100);
 	}
 
 	@Override
 	public int p(int m) {
 		// TODO Auto-generated method stub
-		return 0;
+		return this2.p(m);
 	}
 
 	@Override
 	public int q(int m) {
 		// TODO Auto-generated method stub
-		return 0;
+		return this2.q(m);
 	}
 
 }
@@ -90,41 +90,41 @@ class A2 implements IA {
 class B2 implements IB {
 	int b1 = 1000;
 	int b2 = 2000;
-	A2 superA;
-	IB iB;
+	A2 super2;																	//superClass instance to access the base classes behaviour and attributes
+	IB this2;																		//subClass instance to access the base classes behaviour and attributes
 
-	B2() {
-		superA = new A2(this);
-		iB = this;
+	B2() {																		//Passing the current instance to the Delegate class(Parent)
+		super2 = new A2(this);
+		this2 = this;
 	}
-
-	B2(IB b) {
-		superA = new A2(b);
-		iB = b;
+	
+	B2(IB b) {																	//Parameterised constructor to get the instance of calling class
+		super2 = new A2(b);														//Passing the calling instance to the Delegate class(Parent)
+		this2 = b;
 	}
 
 	@Override
 	public int f() {
 		// TODO Auto-generated method stub
-		return superA.f();
+		return super2.f();
 	}
 
 	@Override
 	public int p(int m) {
 		// TODO Auto-generated method stub
-		return m + superA.a1 + b1;
+		return m + super2.a1 + b1;
 	}
 
 	@Override
 	public int q(int m) {
 		// TODO Auto-generated method stub
-		return m + superA.a2 + b2;
+		return m + super2.a2 + b2;
 	}
 
 	@Override
 	public int g() {
 		// TODO Auto-generated method stub
-		return iB.p(100) + iB.q(200);
+		return this2.p(100) + this2.q(200);
 	}
 }
 
@@ -132,48 +132,48 @@ class C2 implements IC {
 	int c1 = 10000;
 	int c2 = 20000;
 
-	IC iC;
-	B2 superB;
+	IC this2;																			//subClass instance to access the base classes behaviour and attributes
+	B2 super2;																		//superClass instance to access the base classes behaviour and attributes
 
-	C2(IC c) {
-		iC = c;
-		superB = new B2(iC);
+	C2(IC c) {																		//Passing the calling instance to the Delegate class(Parent)
+		this2 = c;
+		super2 = new B2(this2);
 	}
 
 	@Override
 	public int g() {
 		// TODO Auto-generated method stub
-		return superB.g();
+		return super2.g();
 	}
 
 	@Override
 	public int f() {
 		// TODO Auto-generated method stub
-		return superB.f();
+		return super2.f();
 	}
 
 	@Override
 	public int p(int m) {
 		// TODO Auto-generated method stub
-		return superB.p(m);
+		return super2.p(m);
 	}
 
 	@Override
 	public int q(int m) {
 		// TODO Auto-generated method stub
-		return m + superB.superA.a2 + superB.b2 + c2;
+		return m + super2.super2.a2 + super2.b2 + c2;
 	}
 
 	@Override
 	public int r() {
 		// TODO Auto-generated method stub
-		return iC.f() + iC.g() + iC.h();
+		return this2.f() + this2.g() + this2.h();
 	}
 
 	@Override
 	public int h() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this2.h();
 	}
 
 }
@@ -182,168 +182,169 @@ class D2 implements ID {
 	int d1 = 1000000;
 	int d2 = 2000000;
 
-	C2 superC;
+	C2 super2;																//superClass instance to access the base classes behaviour and attributes
+	ID this2;																	//subClass instance to access the base classes behaviour and attributes
 
 	D2() {
-		superC = new C2(this);
+		super2 = new C2(this);												//Passing the current instance to the Delegate class(Parent)
+		this.this2 = this;
 	}
 
-	ID iD;
 
-	D2(ID iD) {
-		superC = new C2(iD);
-		this.iD = iD;
+	D2(ID iD) {																//Parameterised constructor to get the instance of calling class
+		super2 = new C2(iD);												//Passing the calling instance to the Delegate class(Parent)
+		this.this2 = iD;
 	}
 
 	@Override
 	public int r() {
 		// TODO Auto-generated method stub
-		return iD.f() + iD.g() + iD.h();
+		return this2.f() + this2.g() + this2.h();
 	}
 
 	@Override
 	public int h() {
 		// TODO Auto-generated method stub
-		return superC.superB.superA.a1 + superC.superB.b1 + superC.c1;
+		return super2.super2.super2.a1 + super2.super2.b1 + super2.c1;
 	}
 
 	@Override
 	public int g() {
 		// TODO Auto-generated method stub
-		return superC.g();
+		return super2.g();
 	}
 
 	@Override
 	public int f() {
 		// TODO Auto-generated method stub
-		return superC.f();
+		return super2.f();
 	}
 
 	@Override
 	public int p(int m) {
 		// TODO Auto-generated method stub
-		return superC.p(m) + d2;
+		return super2.p(m) + d2;
 	}
 
 	@Override
 	public int q(int m) {
 		// TODO Auto-generated method stub
-		return superC.q(m);
+		return super2.q(m);
 	}
 
 	@Override
 	public int j(int n) {
 		// TODO Auto-generated method stub
-		return iD.r() + superC.r();
+		return this2.r() + super2.r();
 	}
 }
 
 class E2 implements IE {
 	int e1 = 1;
 	int e2 = 2;
-	C2 superC;
+	C2 super2;																	//superClass instance to access the base classes behaviour and attributes
 
 	E2() {
-		superC = new C2(this);
+		super2 = new C2(this);													//Passing the current instance to the Delegate class(Parent)
 	}
 
 	@Override
 	public int r() {
 		// TODO Auto-generated method stub
-		return superC.r();
+		return super2.r();
 	}
 
 	@Override
 	public int h() {
 		// TODO Auto-generated method stub
-		return superC.superB.superA.a1 + superC.superB.b1 + e1;
+		return super2.super2.super2.a1 + super2.super2.b1 + e1;
 	}
 
 	@Override
 	public int g() {
 		// TODO Auto-generated method stub
-		return superC.g();
+		return super2.g();
 	}
 
 	@Override
 	public int f() {
 		// TODO Auto-generated method stub
-		return superC.f();
+		return super2.f();
 	}
 
 	@Override
 	public int p(int m) {
 		// TODO Auto-generated method stub
-		return superC.p(m);
+		return super2.p(m);
 	}
 
 	@Override
 	public int q(int m) {
 		// TODO Auto-generated method stub
-		return p(m) + superC.c2;
+		return p(m) + super2.c2;
 	}
 
 	@Override
 	public int k(int n) {
 		// TODO Auto-generated method stub
-		return q(n) + superC.q(n);
+		return q(n) + super2.q(n);
 	}
 }
 
 class F2 implements IF {
 	int f1 = 10;
 	int f2 = 20;
-	D2 superD;
+	D2 super2;													//superClass instance to access the base classes behaviour and attributes
 
 	F2() {
-		superD = new D2(this);
+		super2 = new D2(this);									//Passing the calling instance to the Delegate class(Parent)
 	}
 
 	@Override
 	public int j(int n) {
 		// TODO Auto-generated method stub
-		return superD.j(n);
+		return super2.j(n);
 	}
 
 	@Override
 	public int r() {
 		// TODO Auto-generated method stub
-		return superD.r();
+		return super2.r();
 	}
 
 	@Override
 	public int h() {
 		// TODO Auto-generated method stub
-		return superD.superC.c2 + f2;
+		return super2.super2.c2 + f2;
 	}
 
 	@Override
 	public int g() {
 		// TODO Auto-generated method stub
-		return superD.g();
+		return super2.g();
 	}
 
 	@Override
 	public int f() {
 		// TODO Auto-generated method stub
-		return superD.f();
+		return super2.f();
 	}
 
 	@Override
 	public int p(int m) {
 		// TODO Auto-generated method stub
-		return superD.p(m);
+		return super2.p(m);
 	}
 
 	@Override
 	public int q(int m) {
 		// TODO Auto-generated method stub
-		return p(m) + superD.superC.c1 + superD.d1;
+		return p(m) + super2.super2.c1 + super2.d1;
 	}
 
 	@Override
 	public int l(int n) {
 		// TODO Auto-generated method stub
-		return q(n) + superD.q(n);
+		return q(n) + super2.q(n);
 	}
 }
